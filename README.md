@@ -1,33 +1,53 @@
-Bank Management System
+🏦 Bank Management System
 
 A RESTful Bank Management System built using Java, Spring Boot, Spring Data JPA, Hibernate, and PostgreSQL.
 
-The application provides APIs for managing banks, accounts, and addresses with entity relationships, validation, custom exception handling, and CRUD operations.
+The application provides REST APIs for managing banks, accounts, and addresses, with JPA association mappings, CRUD operations, validation, custom exceptions, centralized exception handling, and partial updates.
+
+⸻
+
+🚧 Project Status
+
+Status: In Development
+
+The core Bank, Account, and Address management functionality has been implemented, including CRUD operations, JPA association mappings, custom exception handling, centralized exception handling, and partial account updates.
+
+The project is currently being extended with additional Spring Boot features and improvements.
+
+⸻
 
 🚀 Features
 
 * Create, retrieve, update, and delete bank records
-* Create and manage customer accounts
-* Manage address information
-* Entity relationship mapping using JPA/Hibernate
-* Custom exception handling
-* Global exception handling using @RestControllerAdvice
+* Create and manage bank accounts
+* Create, retrieve, update, and delete addresses
+* JPA/Hibernate entity association mappings
+* Spring Data JPA repository layer
+* Service layer for business logic
+* DTOs for request handling
+* Custom application-specific exceptions
+* Centralized exception handling using @RestControllerAdvice
 * Partial account updates using PATCH
-* Database persistence using Spring Data JPA
-* REST APIs tested using Postman
-* Centralized API response structure using ResponseStructure
+* Structured API responses using ResponseStructure
+* PostgreSQL database persistence
+* REST API testing using Postman
+
+⸻
 
 🛠️ Technologies Used
 
-* Java 21
-* Spring Boot
-* Spring Data JPA
-* Hibernate
-* PostgreSQL
-* Maven
-* Postman
-* Eclipse IDE
-* Git & GitHub
+Technology	Usage
+Java 21	Programming language
+Spring Boot	Application framework
+Spring Data JPA	Data access
+Hibernate	ORM
+PostgreSQL	Relational database
+Maven	Dependency management
+Postman	API testing
+Eclipse IDE	Development environment
+Git & GitHub	Version control
+
+⸻
 
 📁 Project Structure
 
@@ -49,69 +69,91 @@ src
 └── test
     └── java
 
+Layer Responsibilities
+
+* Controller — Handles HTTP requests and responses
+* Service — Contains business logic
+* Repository — Handles database operations using Spring Data JPA
+* Entity — Represents database entities
+* DTO — Handles API request data
+* Exception — Contains custom exceptions and global exception handling
+* Enums — Contains predefined application values
+
+⸻
+
 🗃️ Main Entities
 
-The application currently contains the following major entities:
+The application currently contains three major entities:
 
 * Bank
 * Account
 * Address
 
-These entities are connected using JPA association mappings.
+These entities are connected using JPA/Hibernate association mappings.
+
+⸻
 
 🔗 API Operations
 
-The application provides REST endpoints for operations such as:
-
-Bank
+🏦 Bank
 
 * Create bank
-* Retrieve banks
+* Retrieve all banks
 * Retrieve bank by ID
 * Update bank
 * Delete bank
 
-Account
+💳 Account
 
 * Create account
-* Retrieve accounts
+* Retrieve all accounts
 * Retrieve account by ID
 * Update account
 * Partially update account
 * Delete account
 
-Address
+📍 Address
 
 * Create address
-* Retrieve addresses
+* Retrieve all addresses
 * Retrieve address by ID
 * Update address
 * Delete address
 
-Endpoint paths may change as the project evolves.
+API endpoint paths may change as the project evolves.
+
+⸻
 
 ⚠️ Exception Handling
 
-The project uses custom exceptions for handling application-specific errors, including cases such as:
+The application uses custom exceptions for handling application-specific errors.
 
-* Account not found
-* Address not found
-* Bank not found
-* Account already exists
-* Bank already exists
-* Invalid request
+Examples include:
 
-A centralized GlobalExceptionHandler handles these exceptions and returns structured API responses.
+* AccountNotFoundException
+* AddressNotFoundException
+* BankNotFoundException
+* AccountAlreadyExistsException
+* BankAlreadyExistsException
+* InvalidRequestException
 
-🧩 Database
+A centralized GlobalExceptionHandler using @RestControllerAdvice handles these exceptions and returns structured API responses.
 
-The application uses PostgreSQL as the relational database.
+⸻
+
+🗄️ Database
+
+The application uses PostgreSQL as its relational database.
 
 Database configuration is maintained in:
 
 src/main/resources/application.properties
 
 Before running the application, configure your local PostgreSQL database and update the required connection properties.
+
+⚠️ Do not commit database passwords, API keys, or other sensitive credentials to GitHub.
+
+⸻
 
 ▶️ How to Run
 
@@ -125,7 +167,7 @@ Import the project as a Maven project into Eclipse or another Java IDE.
 
 3. Configure PostgreSQL
 
-Create the required database and configure the database connection in:
+Create the required PostgreSQL database and configure the database connection in:
 
 src/main/resources/application.properties
 
@@ -137,26 +179,65 @@ BankmanagementApplication.java
 
 The application will start on the configured server port.
 
+⸻
+
 🧪 API Testing
 
-The REST APIs were tested using Postman.
+The REST APIs are tested using Postman.
 
 Example base URL:
 
 http://localhost:8080
 
+⸻
+
 📌 Future Improvements
 
-Possible future improvements include:
+The following features are planned for future versions:
 
 * Spring Security authentication and authorization
 * JWT-based authentication
 * Transaction management
-* Input validation improvements
+* Improved input validation
 * API documentation using Swagger/OpenAPI
-* Unit and integration testing
+* Unit testing
+* Integration testing
 * Pagination and sorting
 * Docker support
+* Improved API documentation
+* Additional business operations
+
+⸻
+
+📈 Development Roadmap
+
+Core CRUD APIs
+      ↓
+JPA Association Mapping
+      ↓
+Service Layer
+      ↓
+Custom Exception Handling
+      ↓
+Global Exception Handling
+      ↓
+PATCH / Partial Updates
+      ↓
+Validation
+      ↓
+Spring Security
+      ↓
+JWT Authentication
+      ↓
+Transaction Management
+      ↓
+Swagger / OpenAPI
+      ↓
+Unit & Integration Testing
+      ↓
+Docker
+
+⸻
 
 👨‍💻 Author
 
