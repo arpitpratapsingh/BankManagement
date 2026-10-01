@@ -17,4 +17,5 @@ public class AccountUpdateDto {
 	public void setAccountType(AccountType accountType) {
 		this.accountType = accountType;
 	}
+
 }

@@ -28,6 +28,7 @@ public class BankController {
 	@Autowired
 	BankRepository bankRepository;
 	
+	// 1. create bank
 	@PostMapping
 	public ResponseEntity<ResponseStructure<Bank>> createBank(@RequestBody Bank bank){
 		
@@ -51,45 +52,66 @@ public class BankController {
 		
 	}
 	
-	// get bank by contactNumber
-	
-	@GetMapping("/contact/{contactNumber}")
-	public ResponseEntity<ResponseStructure<Bank>> getBankByContact(@PathVariable long contactNumber){
-	
-		Optional<Bank> opt = bankRepository.findByContactNumber(contactNumber);
-		
-		if(opt.isPresent()) {
-			ResponseStructure<Bank> response = new ResponseStructure<Bank>();
+	// 2. get all banks
+		@GetMapping
+		public ResponseEntity<ResponseStructure<List<Bank>>> getAllBank(){
 			
-			response.setMessage("Bank details retrieved successfully");
-			response.setData(opt.get());
+			ResponseStructure<List<Bank>> response = new ResponseStructure<List<Bank>>();
+			List<Bank> banks = bankRepository.findAll();
 			
-			return new ResponseEntity<>(response,HttpStatus.OK);
-		}else {
-			throw new BankNotFoundException("This contact number is not associated with any bank");
-		}
-		
-	}
-	
-	// get by id
-	
-	@GetMapping("/id/{id}")
-	public ResponseEntity<ResponseStructure<Bank>> getBankById(@PathVariable int id){
-		
-		Optional<Bank> opt = bankRepository.findById(id);
-		
-		if(opt.isPresent()) {
-			ResponseStructure<Bank> response = new ResponseStructure<Bank>();
-			
-			response.setMessage("Bank retrieved");
-			response.setData(opt.get());
+			if(banks.isEmpty()) {
+				response.setMessage("No banks found");
+				response.setData(banks);
+			}else {
+				response.setMessage("Banks retrieved");
+				response.setData(banks);
+			}
 			
 			return new ResponseEntity<>(response, HttpStatus.OK);
-		}else
-			throw new BankNotFoundException("Bank with this id does not exist");
-	}
+				
+		}
 	
-	// get by IFSC
+		//3. get bank by id
+		
+		@GetMapping("/id/{id}")
+		public ResponseEntity<ResponseStructure<Bank>> getBankById(@PathVariable int id){
+			
+			Optional<Bank> opt = bankRepository.findById(id);
+			
+			if(opt.isPresent()) {
+				ResponseStructure<Bank> response = new ResponseStructure<Bank>();
+				
+				response.setMessage("Bank retrieved");
+				response.setData(opt.get());
+				
+				return new ResponseEntity<>(response, HttpStatus.OK);
+			}else
+				throw new BankNotFoundException("Bank with this id does not exist");
+		}
+		
+		//4. delete bank
+		@DeleteMapping("/{contactNumber}")
+		public ResponseEntity<ResponseStructure<Void>> deleteByContactNumber(@PathVariable long contactNumber){
+			Optional<Bank> opt = bankRepository.findByContactNumber(contactNumber);
+			
+			if(opt.isEmpty()) {
+				throw new BankNotFoundException("Bank associated with this number does not exist");
+			}else {
+				bankRepository.deleteByContactNumber(contactNumber);
+				ResponseStructure<Void> response = new ResponseStructure<Void>();
+				
+				response.setMessage("Bank deleted");
+				response.setData(null);
+				
+				return new ResponseEntity<>(response,HttpStatus.OK);
+			}
+		}
+		
+	//5. update bank
+		
+	//6. get bank by pagination and sorting
+		
+	//7. get by IFSC
 	
 	@GetMapping("/ifsc/{ifsc}")
 	public ResponseEntity<ResponseStructure<Bank>> getBankByIfsc(@PathVariable String ifsc){
@@ -107,7 +129,7 @@ public class BankController {
 			throw new BankNotFoundException("Bank with this IFSC does not exist");
 	}
 	
-	// get by AddressId
+	//8. get by AddressId
 	
 	@GetMapping("/addressid/{addressId}")
 	public ResponseEntity<ResponseStructure<Bank>> getBankByAddressId(@PathVariable int addressId){
@@ -126,7 +148,7 @@ public class BankController {
 	}
 	
 	
-	//get by address
+	//9. get by address
 	
 	@GetMapping("/address")
 	public ResponseEntity<ResponseStructure<Bank>> getBankByAddress(@RequestBody Address address){
@@ -144,7 +166,7 @@ public class BankController {
 			throw new BankNotFoundException("Bank with the give address does not exist");
 	}
 	
-	// get banks by city
+	//10. get banks by city
 	@GetMapping("/city/{city}")
 	public ResponseEntity<ResponseStructure<List<Bank>>> getByCity(@PathVariable String city){
 		
@@ -163,53 +185,24 @@ public class BankController {
 		
 	}
 	
-	// get all banks
-	@GetMapping
-	public ResponseEntity<ResponseStructure<List<Bank>>> getAllBank(){
-		
-		ResponseStructure<List<Bank>> response = new ResponseStructure<List<Bank>>();
-		List<Bank> banks = bankRepository.findAll();
-		
-		if(banks.isEmpty()) {
-			response.setMessage("No banks found");
-			response.setData(banks);
-		}else {
-			response.setMessage("Banks retrieved");
-			response.setData(banks);
-		}
-		
-		return new ResponseEntity<>(response, HttpStatus.OK);
-			
-	}
+	//11. get bank by contactNumber
 	
-	// delete using contact number
-	@DeleteMapping("/{contactNumber}")
-	public ResponseEntity<ResponseStructure<Void>> deleteByContactNumber(@PathVariable long contactNumber){
+	@GetMapping("/contact/{contactNumber}")
+	public ResponseEntity<ResponseStructure<Bank>> getBankByContact(@PathVariable long contactNumber){
+	
 		Optional<Bank> opt = bankRepository.findByContactNumber(contactNumber);
 		
-		if(opt.isEmpty()) {
-			throw new BankNotFoundException("Bank associated with this number does not exist");
-		}else {
-			bankRepository.deleteByContactNumber(contactNumber);
-			ResponseStructure<Void> response = new ResponseStructure<Void>();
+		if(opt.isPresent()) {
+			ResponseStructure<Bank> response = new ResponseStructure<Bank>();
 			
-			response.setMessage("Bank deleted");
-			response.setData(null);
+			response.setMessage("Bank details retrieved successfully");
+			response.setData(opt.get());
 			
 			return new ResponseEntity<>(response,HttpStatus.OK);
+		}else {
+			throw new BankNotFoundException("This contact number is not associated with any bank");
 		}
+		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

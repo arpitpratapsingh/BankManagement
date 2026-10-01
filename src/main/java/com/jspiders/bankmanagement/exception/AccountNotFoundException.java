@@ -1,7 +1,7 @@
 package com.jspiders.bankmanagement.exception;
 
 public class AccountNotFoundException extends RuntimeException{
-	AccountNotFoundException(String message){
+	public AccountNotFoundException(String message){
 		super(message);
 	}
 }
