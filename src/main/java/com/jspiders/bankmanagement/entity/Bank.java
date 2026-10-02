@@ -20,21 +20,21 @@ public class Bank {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int bankId;
-	
+
 	private String bankName;
-	
+
 	@Column(unique = true)
 	private String ifsc;
-	
+
 	private String branchName;
-	
+
 	@Column(unique = true)
 	private long contactNumber;
-	
+
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "address_id", unique = true)
 	private Address address;
-	
+
 	@OneToMany(mappedBy = "bank")
 	@JsonIgnore
 	private List<Account> accounts;
@@ -94,7 +94,5 @@ public class Bank {
 	public void setAccounts(List<Account> accounts) {
 		this.accounts = accounts;
 	}
-	
-	
-	
+
 }

@@ -9,12 +9,12 @@ import com.jspiders.bankmanagement.entity.Account;
 import com.jspiders.bankmanagement.enums.AccountType;
 
 public interface AccountRepository extends JpaRepository<Account, Integer> {
-	
+
 	Optional<Account> findByAccountNumber(long accountNumber);
-	
+
 	List<Account> findByBankBankId(int bankId);
-	
+
 	List<Account> findByAccountType(AccountType accountType);
-	
+
 	List<Account> findByBalanceGreaterThan(double balance);
 }

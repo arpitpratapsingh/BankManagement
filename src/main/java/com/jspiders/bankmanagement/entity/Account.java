@@ -17,17 +17,17 @@ public class Account {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int accountId;
-	
+
 	@Column(unique = true)
 	private long accountNumber;
-	
+
 	private String accountHolderName;
-	
+
 	@Enumerated(EnumType.STRING)
 	private AccountType accountType;
-	
+
 	private double balance;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "bank_id")
 	private Bank bank;
@@ -79,6 +79,5 @@ public class Account {
 	public void setBank(Bank bank) {
 		this.bank = bank;
 	}
-	
-	
+
 }

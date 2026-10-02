@@ -11,13 +11,13 @@ public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int addressId;
-	
+
 	private String street;
-	
+
 	private String city;
-	
+
 	private String state;
-	
+
 	@Column(unique = true)
 	private String pinCode;
 
@@ -60,6 +60,5 @@ public class Address {
 	public void setPinCode(String pinCode) {
 		this.pinCode = pinCode;
 	}
-	
-	
+
 }
